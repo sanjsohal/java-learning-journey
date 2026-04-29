@@ -18,6 +18,10 @@ public class PhaserDemo {
         phaser.arriveAndAwaitAdvance();
         System.out.println("Phase " + currentPhase + " completed");
 
+        currentPhase = phaser.getPhase();
+        phaser.arriveAndAwaitAdvance();
+        System.out.println("Phase " + currentPhase + " completed");
+
         phaser.arriveAndDeregister();
         if(phaser.isTerminated()) {
             System.out.println("Phaser is terminated");
@@ -32,7 +36,6 @@ public class PhaserDemo {
             this.phaser.register();
         }
         public void run() {
-            int phase = phaser.getPhase();
             System.out.println(name + " Beginning Phase One");
             phaser.arriveAndAwaitAdvance();
             try {
@@ -47,6 +50,15 @@ public class PhaserDemo {
             } catch(InterruptedException exc) {
                 System.out.println(exc);
             }
+
+            System.out.println(name + " Beginning Phase Three");
+            phaser.arriveAndAwaitAdvance();
+            try {
+                Thread.sleep(1000);
+            } catch(InterruptedException exc) {
+                System.out.println(exc);
+            }
+            phaser.arriveAndDeregister();
         }
     }
 }
