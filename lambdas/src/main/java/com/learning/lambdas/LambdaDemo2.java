@@ -12,6 +12,11 @@ public class LambdaDemo2 {
         System.out.println("4 is odd: " + isEven.valid(4));
 
         System.out.println("5 is even: " +  isEven.valid(5));
+
+        Func2 isNumberNegativeOrPositive = n -> n>=0;
+
+        System.out.println("2 is positive: "+isNumberNegativeOrPositive.valid(2));
+        System.out.println("-4 is negative: "+isNumberNegativeOrPositive.valid(-3));
         
     }
 }
