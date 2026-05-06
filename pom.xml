@@ -15,5 +15,6 @@
     <module>ds-module</module>
     <module>multithreading</module>
     <module>java-generics</module>
+    <module>lambdas</module>
   </modules>
 </project>
