@@ -5,12 +5,13 @@ import java.util.concurrent.RecursiveTask;
 
 public class ForkJoinExperiment2 {
     static void main() {
-        double[] nums = new double[100000];
-        for(int i=0; i<nums.length; i++) {
+        double[] nums = new double[50_000];
+        for(int i=1; i<nums.length; i++) {
             nums[i] = (double)i%2 == 0 ? i: -i;
         }
         ForkJoinPool pool = new ForkJoinPool();
-        pool.invoke(new Sum(0, nums.length, nums));
+        Double result = pool.invoke(new Sum(0, nums.length, nums));
+        System.out.println("Summation is: "+result);
     }
     static class Sum extends RecursiveTask<Double> {
         int start;
@@ -32,9 +33,8 @@ public class ForkJoinExperiment2 {
                 int middle = (start + end) / 2;
                 Sum sumA = new Sum(start, middle, data);
                 Sum sumB = new Sum(middle, end, data);
-                sumA.fork();
                 sumB.fork();
-                sum = sumA.join() + sumB.join();
+                sum = sumA.compute() + sumB.join();
             }
 
             return sum;
